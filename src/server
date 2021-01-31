@@ -1,0 +1,21 @@
+import argparse
+
+from wsgi_app import create_app
+from wsgi_server import GunicornServer
+
+
+parser = argparse.ArgumentParser(description="Experimental Flask server")
+parser.add_argument('-h', '--hostname', type=str, default="0.0.0.0", help="Hostname")
+parser.add_argument('-p', '--port', type=int, default=9000, help="Port")
+parser.add_argument('-w', '--workers', type=int, default=2, help="Number of worker threads")
+
+
+if __name__ == "__main__":
+    args = parser.parse_args()
+
+    options = {
+            'bind': f'{args.hostname}:{args.port}',
+            'workers': args.workers,
+        }
+
+    GunicornServer(create_app(), options).run()
