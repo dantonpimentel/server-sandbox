@@ -2,7 +2,8 @@ from copy import deepcopy
 
 from gunicorn.app.base import BaseApplication
 
-class WSGIWrapper(BaseApplication):
+
+class GunicornServer(BaseApplication):
     def __init__(self, app, config):
         self.options = deepcopy(config)
         self.application = app
